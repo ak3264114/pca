@@ -221,8 +221,6 @@ if __name__ == "__main__":
 
 ```
 
-
-
 #DataFrame
 
 ```python
@@ -252,6 +250,7 @@ df = pd.DataFrame({'index': range(len(data)), 'Values': data})
 # JSON
 
 ### Read from dict
+
 ```python
 my_dict = {'a': 1, 'b': 2, 'c': 3}
 
@@ -262,9 +261,9 @@ print(value_a)  # Output: 1
 
 ```
 
-
 ### GEt methood
-```python 
+
+```python
 value_b = my_dict.get('b')
 print(value_b)  # Output: 2
 
@@ -273,6 +272,7 @@ print(value_d)  # Output: 'Key not found'
 
 
 ```
+
 ### writing dict
 
 ```python
@@ -288,7 +288,8 @@ print(my_dict)  # Output: {'a': 1, 'b': 20, 'c': 3, 'd': 4}
 ```
 
 ### update()
-```python 
+
+```python
 # Adding or updating multiple key-value pairs
 my_dict.update({'e': 5, 'f': 6})
 print(my_dict)  # Output: {'a': 1, 'b': 20, 'c': 3, 'd': 4, 'e': 5, 'f': 6}
@@ -297,7 +298,7 @@ print(my_dict)  # Output: {'a': 1, 'b': 20, 'c': 3, 'd': 4, 'e': 5, 'f': 6}
 
 ### To open a JSON file, add data to it, and then save it using Python,
 
-```python 
+```python
 import json
 
 # Open the JSON file for reading
@@ -310,5 +311,107 @@ data['new_key'] = 'new_value'
 # Save the updated JSON object back to the file
 with open('data.json', 'w') as file:
     json.dump(data, file, indent=4)
+
+```
+
+# Minimax Algorithm in Game Theory (Alpha-Beta Pruning)
+
+```python
+import math
+
+def minimax_alpha_beta(node, depth, alpha, beta, maximizing_player):
+    if depth == 0 or node.is_terminal():
+        return node.evaluate(), None
+
+    if maximizing_player:
+        max_eval = -math.inf
+        best_move = None
+        for move in node.get_possible_moves():
+            child_node = node.make_move(move)
+            eval, _ = minimax_alpha_beta(child_node, depth - 1, alpha, beta, False)
+            if eval > max_eval:
+                max_eval = eval
+                best_move = move
+            alpha = max(alpha, eval)
+            if beta <= alpha:
+                break
+        return max_eval, best_move
+    else:
+        min_eval = math.inf
+        best_move = None
+        for move in node.get_possible_moves():
+            child_node = node.make_move(move)
+            eval, _ = minimax_alpha_beta(child_node, depth - 1, alpha, beta, True)
+            if eval < min_eval:
+                min_eval = eval
+                best_move = move
+            beta = min(beta, eval)
+            if beta <= alpha:
+                break
+        return min_eval, best_move
+
+# Example usage
+class Node:
+    def __init__(self, value):
+        self.value = value
+
+    def evaluate(self):
+        return self.value
+
+    def is_terminal(self):
+        return True  # Define terminal condition
+
+    def get_possible_moves(self):
+        return [1, 2, 3]  # Example list of possible moves
+
+    def make_move(self, move):
+        return Node(self.value - move)  # Example move implementation
+
+root_node = Node(10)  # Example initial node
+best_score, best_move = minimax_alpha_beta(root_node, 3, -math.inf, math.inf, True)
+print("Best move:", best_move)
+print("Best score:", best_score)
+
+```
+
+# Minimax Algorithm in Game Theory
+
+```python
+
+# A simple Python3 program to find
+# maximum score that
+# maximizing player can get
+import math
+
+def minimax (curDepth, nodeIndex,
+			maxTurn, scores,
+			targetDepth):
+
+	# base case : targetDepth reached
+	if (curDepth == targetDepth):
+		return scores[nodeIndex]
+
+	if (maxTurn):
+		return max(minimax(curDepth + 1, nodeIndex * 2,
+					False, scores, targetDepth),
+				minimax(curDepth + 1, nodeIndex * 2 + 1,
+					False, scores, targetDepth))
+
+	else:
+		return min(minimax(curDepth + 1, nodeIndex * 2,
+					True, scores, targetDepth),
+				minimax(curDepth + 1, nodeIndex * 2 + 1,
+					True, scores, targetDepth))
+
+# Driver code
+scores = [3, 5, 2, 9, 12, 5, 23, 23]
+
+treeDepth = math.log(len(scores), 2)
+
+print("The optimal value is : ", end = "")
+print(minimax(0, 0, True, scores, treeDepth))
+
+# This code is contributed
+# by rootshadow
 
 ```
