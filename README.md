@@ -154,7 +154,7 @@ def tic_tac_toe():
 tic_tac_toe()
 ```
 
-fibonaci
+#fibonaci
 
 ```pl
 
@@ -221,9 +221,9 @@ if __name__ == "__main__":
 
 ```
 
-# W
 
-DataFrame
+
+#DataFrame
 
 ```python
 
@@ -238,5 +238,77 @@ df = pd.DataFrame(data)
 
 # Display the DataFrame
 print(df)
+
+# ---------------------------
+
+data = [10, 20, 30, 40, 50]
+
+# Create a DataFrame from the array with index and values columns named explicitly
+df = pd.DataFrame({'index': range(len(data)), 'Values': data})
+
+
+```
+
+# JSON
+
+### Read from dict
+```python
+my_dict = {'a': 1, 'b': 2, 'c': 3}
+
+# Reading values
+value_a = my_dict['a']
+print(value_a)  # Output: 1
+
+
+```
+
+
+### GEt methood
+```python 
+value_b = my_dict.get('b')
+print(value_b)  # Output: 2
+
+value_d = my_dict.get('d', 'Key not found')
+print(value_d)  # Output: 'Key not found'
+
+
+```
+### writing dict
+
+```python
+
+# Adding new key-value pairs
+my_dict['d'] = 4
+print(my_dict)  # Output: {'a': 1, 'b': 2, 'c': 3, 'd': 4}
+
+# Modifying existing value
+my_dict['b'] = 20
+print(my_dict)  # Output: {'a': 1, 'b': 20, 'c': 3, 'd': 4}
+
+```
+
+### update()
+```python 
+# Adding or updating multiple key-value pairs
+my_dict.update({'e': 5, 'f': 6})
+print(my_dict)  # Output: {'a': 1, 'b': 20, 'c': 3, 'd': 4, 'e': 5, 'f': 6}
+
+```
+
+### To open a JSON file, add data to it, and then save it using Python,
+
+```python 
+import json
+
+# Open the JSON file for reading
+with open('data.json', 'r') as file:
+    data = json.load(file)
+
+# Add new data to the existing JSON object
+data['new_key'] = 'new_value'
+
+# Save the updated JSON object back to the file
+with open('data.json', 'w') as file:
+    json.dump(data, file, indent=4)
 
 ```
